@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.favorite.FavoriteFragment">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        >
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="230dp"
+            android:id="@+id/fav_img"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:src="@drawable/bg"
+            android:foreground="@drawable/foreground_design"
+            android:scaleType="centerCrop"
+            />
+        <TextView
+            android:id="@+id/fav_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="favorite fragment"
+            android:textColor="@color/white"
+            android:textSize="30sp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/fav_img"
+            app:layout_constraintBottom_toBottomOf="@+id/fav_img"
+            app:layout_constraintVertical_bias="0.7"
+            />
+        <TextView
+            android:id="@+id/fav_view_more"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@color/white"
+            android:textSize="24sp"
+            android:text="View more ... "
+            android:layout_margin="8dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/fav_img"
+            />
+        <TextView
+            android:id="@+id/fav_desc"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="i dont know"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            app:layout_constraintTop_toBottomOf="@+id/fav_name"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintBottom_toBottomOf="@+id/fav_img"/>
+        <com.google.android.material.tabs.TabLayout
+            android:id="@+id/fav_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/fav_img"/>
+        <androidx.viewpager2.widget.ViewPager2
+            android:id="@+id/fav_viewpage2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/fav_tab_layout"
+            />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
