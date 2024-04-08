@@ -3,7 +3,7 @@ package com.bb.food.models;
 public class CoffeeMorningModel {
     int image;
     String name,desc, discount, type;
-
+    public CoffeeMorningModel(){}
     public CoffeeMorningModel(int image, String name, String desc, String discount) {
         this.image = image;
         this.name = name;
@@ -57,5 +57,16 @@ public class CoffeeMorningModel {
 
     public void setType(String type) {
         this.type = type;
+    }
+
+    @Override
+    public String toString() {
+        return "CoffeeMorningModel{" +
+                "image=" + image +
+                ", name='" + name + '\'' +
+                ", desc='" + desc + '\'' +
+                ", discount='" + discount + '\'' +
+                ", type='" + type + '\'' +
+                '}';
     }
 }

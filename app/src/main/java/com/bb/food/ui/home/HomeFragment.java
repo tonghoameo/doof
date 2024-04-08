@@ -5,6 +5,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -15,8 +17,15 @@ import com.bb.food.R;
 import com.bb.food.adapters.HomeHorAdapter;
 import com.bb.food.adapters.HomeVerAdapter;
 import com.bb.food.adapters.UpdateVerRec;
+import com.bb.food.models.CoffeeMorningModel;
 import com.bb.food.models.HomeHorModel;
 import com.bb.food.models.HomeVerModel;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.Firebase;
+import com.google.firebase.firestore.DocumentSnapshot;
+import com.google.firebase.firestore.FirebaseFirestore;
+import com.google.firebase.firestore.QuerySnapshot;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,7 +69,13 @@ public class HomeFragment extends Fragment implements UpdateVerRec {
         homeverrec.setLayoutManager(new LinearLayoutManager(getActivity(), RecyclerView.VERTICAL, false));
         homeverrec.setHasFixedSize(true);
         homeverrec.setNestedScrollingEnabled(false);
-
+        ImageView searchbtn = root.findViewById(R.id.home_seach_coffee);
+        searchbtn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                search1();
+            }
+        });
         return root;
     }
 
@@ -78,4 +93,35 @@ public class HomeFragment extends Fragment implements UpdateVerRec {
         homeverrec.setAdapter(homeVerAdapter);
         Log.d("UPDATE", "update veradapter: " + list.toString());
     }
+
+
+    private void search1(){
+
+        FirebaseFirestore firestore = FirebaseFirestore.getInstance();
+        firestore.collection("coffees_search").whereEqualTo("type","beer").get().addOnCompleteListener(new OnCompleteListener<QuerySnapshot>() {
+            @Override
+            public void onComplete(@NonNull Task<QuerySnapshot> task) {
+
+                if(task.isSuccessful() && task.getResult()!=null){
+                    homeVerModelList.clear();
+
+                    for(DocumentSnapshot ds: task.getResult().getDocuments()){
+
+                        CoffeeMorningModel cf = ds.toObject(CoffeeMorningModel.class);
+                        Log.d("SEARCH", "onComplete: " + cf.toString());
+                        homeVerModelList.add(new HomeVerModel(R.drawable.cart,cf.getName(),"10:00","4","10"));
+
+                    }
+
+                    Toast.makeText(getContext(), "find out "+String.valueOf(homeVerModelList.size()), Toast.LENGTH_SHORT).show();
+                    homeVerAdapter = new HomeVerAdapter(getContext(), homeVerModelList);
+                    homeverrec.setAdapter(homeVerAdapter);
+
+                }
+
+            }
+        });
+    }
+
+
 }

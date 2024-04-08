@@ -33,7 +33,7 @@
             android:layout_gravity="bottom"
             android:layout_margin="10dp"
             android:padding="10dp"
-
+            android:onClick="logout"
             />
     </com.google.android.material.navigation.NavigationView>
 </androidx.drawerlayout.widget.DrawerLayout>
